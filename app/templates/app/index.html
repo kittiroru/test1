@@ -1,0 +1,43 @@
+{% load static %}
+
+{% block head %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+<html lang="ja">
+
+<!doctype html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Language" content="ja">
+    <meta name="google" content="notranslate">
+
+    <title>{{ title }}</title>
+
+    <link rel=stylesheet href={% static 'css/test.css' %}>
+
+</head>
+<body>
+
+    <h1>{{ title }}</h1>
+
+    <h3>(x1,y1)と(x2,y2)を通る直線ax+by+c=0を求める</h3>
+
+    <form action="{% url 'app:home' %}" method="post">{% csrf_token %}
+        {{ forms| linebreaksbr}}
+        <input type='submit' value="click">
+    </form>
+    
+    <div class="box27">
+        <span class="box-title">answer</span>
+        <p>a={{ ansa }}</p>
+        <p>b={{ ansb }}</p>
+        <p>c={{ ansc }}</p>
+    </div>
+    
+   {% autoescape off %}
+   {{ graph }}　
+   <!-- HTMLコードの文字列が格納されたコンテキスト -->
+   {% endautoescape %}
+</body>
+</html>
